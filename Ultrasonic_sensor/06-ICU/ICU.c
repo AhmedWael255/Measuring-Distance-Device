@@ -5,9 +5,7 @@
 /*********************************/
 
 #include "../06-ICU/ICU.h"
-
-#include <avr/interrupt.h> /* For ICU ISR */
-
+#include <avr/interrupt.h>
 #include "../GPIO/GPIO.h"
 #include "../Common/BIT_Math.h"
 #include "../Common/STD_Types.h"
@@ -17,10 +15,7 @@
 /*ICU_CallBack*/
 static volatile void (*ICU_CallBack)(void) = NULL;
 
-/***********************************************************
- *                     ISR                                 *
- **********************************************************/
-
+/*ISR Function*/
 ISR(TIMER1_CAPT_vect)
 {
 	if(ICU_CallBack != NULL)
@@ -30,9 +25,7 @@ ISR(TIMER1_CAPT_vect)
 	}
 }
 
-/*******************************************************************************
- *                      Functions Definitions                                  *
- *******************************************************************************/
+
 
 void ICU_Init(const ICU_Config * Config_Ptr)
 {

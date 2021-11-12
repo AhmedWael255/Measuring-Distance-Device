@@ -11,7 +11,7 @@
 #include "avr/delay.h"
 
 static u8 edge = 0, time= 0;
-static u16 distance;
+static u16 distance = 0;
 
 /*The CallBack function*/
 static void Ultrasonic_edgeProcessing(void)
@@ -45,11 +45,11 @@ void Ultrasonic_Init(void)
 	/*Init the ICU by Setting Clock to FCPU/8 and set edge detection to be rising*/
 	ICU_Config config = {F_CPU_8, RISING};
 
-	/*Set Trigger pin as output*/
-	GPIO_setPinDirection(Trigger_Port, Trigger_Pin, OUTPUT);
-
 	/*Init the ICU*/
 	ICU_Init(&config);
+
+	/*Set Trigger pin as output*/
+	GPIO_setPinDirection(Trigger_Port, Trigger_Pin, OUTPUT);
 
 	/*Set the CallBack function */
 	ICU_setCallBack(Ultrasonic_edgeProcessing);
@@ -73,6 +73,6 @@ u16 Ultrasonic_readDistance(void)
 	while(edge != NO_EDGES);
 
 	/*Calculating distance and return the value*/
-	distance = time/58;
+	distance = time/58.8;
 	return distance;
 }

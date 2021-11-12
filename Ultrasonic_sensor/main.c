@@ -13,7 +13,7 @@ int main()
 {
 	/*Define Variable that will contain the value returned by the
 	 * Ultrasonic_readDistance function*/
-	u16 dist;
+	u16 dist = 0;
 
 	/*Set the global Interrupt*/
 	SREG |= (1<<7);
@@ -31,8 +31,9 @@ int main()
 	dist = Ultrasonic_readDistance();
 
 	/*Display the value on the LCD*/
-	LCD_MoveCursor(0,10);
 	LCD_Int_to_Str(dist);
+
+	LCD_Displaystring(" cm");
 
 	while(1)
 	{
